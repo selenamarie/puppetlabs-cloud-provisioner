@@ -829,6 +829,9 @@ module Puppet::CloudPack
           Puppet.notice "Destroying #{myserver.id} (#{myserver.dns_name}) ..."
           myserver.destroy()
           Puppet.notice "Destroying #{myserver.id} (#{myserver.dns_name}) ... Done"
+          Puppet.notice "Destroying all puppet info for #{myserver.id} (#{myserver.dns_name}) ..."
+          Puppet::Face[:node, :current].clean(myserver.private_dns_name)
+          Puppet.notice "Destroying all puppet info for #{myserver.id} (#{myserver.dns_name}) ... Done"
         end
       elsif servers.empty?
         Puppet.warning "Could not find server with DNS name '#{server}'"
